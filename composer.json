@@ -1,7 +1,7 @@
 {
 	"name": "david63/disableext",
 	"type": "phpbb-extension",
-	"description": "Adds an option to disable all extensions.",
+	"description": "Adds an option to disable all phpBB extensions.",
 	"version": "2.1.1",
 	"time": "2019-05-11",
 	"keywords": [
