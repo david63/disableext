@@ -1,5 +1,4 @@
-{% include 'overall_header.html' %}
-{% include '@david63_disableext/head_panel.html' %}
+{% include '@' ~ NAMESPACE ~ '/head_panel.html' %}
 
 <form id="disableext" method="post" action="{{ U_ACTION }}">
 	<fieldset>
@@ -19,5 +18,4 @@
 	</fieldset>
 </form>
 
-{% include '@david63_disableext/donate.html' %}
-{% include 'overall_footer.html' %}
+{% include '@' ~ NAMESPACE ~ '/donate.html' %}

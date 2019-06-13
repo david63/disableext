@@ -1,3 +1,6 @@
+imports:
+    - { resource: phpbb_tables.yml }
+
 services:
     david63.disableext.admin.controller:
         class: david63\disableext\controller\admin_controller
@@ -10,4 +13,11 @@ services:
             - '@language'
             - '@log'
             - '@cache'
+            - '@ext.manager'
+            - '@david63.disableext.core.functions'
+            - '%tables%'
+
+    david63.disableext.core.functions:
+        class: david63\disableext\core\functions
+        arguments:
             - '@ext.manager'

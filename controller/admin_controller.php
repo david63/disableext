@@ -19,7 +19,7 @@ use phpbb\language\language;
 use phpbb\log\log;
 use phpbb\cache\service;
 use phpbb\extension\manager;
-use david63\disableext\ext;
+use david63\disableext\core\functions;
 
 /**
 * Admin controller
@@ -53,29 +53,34 @@ class admin_controller implements admin_interface
 	/** @var \phpbb\extension\manager */
 	protected $phpbb_extension_manager;
 
+	/** @var \david63\disableext\core\functions */
+	protected $functions;
+
+	/** @var string phpBB tables */
+	protected $tables;
+
 	/** @var string Custom form action */
 	protected $u_action;
-
-	/** @var string for current extension name */
-	protected $current_ext;
 
 	/**
 	* Constructor for admin controller
 	*
-	* @param \phpbb\config\config				$config						Config object
-	* @param \phpbb\db\driver\driver_interface	$db							Database object
-	* @param \phpbb\request\request				$request					Request object
-	* @param \phpbb\template\template			$template					Template object
-	* @param \phpbb\user						$user						User object
-	* @param \phpbb\language\language			$language					Language object
-	* @param \phpbb\log\log						$log						Log object
-	* @param \phpbb\cache\service				$cache						Cache object
-	* @param \phpbb\extension\manager			$phpbb_extension_manager	Extension manager
+	* @param \phpbb\config\config					$config						Config object
+	* @param \phpbb\db\driver\driver_interface		$db							Database object
+	* @param \phpbb\request\request					$request					Request object
+	* @param \phpbb\template\template				$template					Template object
+	* @param \phpbb\user							$user						User object
+	* @param \phpbb\language\language				$language					Language object
+	* @param \phpbb\log\log							$log						Log object
+	* @param \phpbb\cache\service					$cache						Cache object
+	* @param \phpbb\extension\manager				$phpbb_extension_manager	Extension manager
+	* @param \david63\disableext\core\functions	functions					Functions for the extension
+	* @param array									$tables						phpBB db tables
 	*
 	* @return \david63\disableext\controller\admin_controller
 	* @access public
 	*/
-	public function __construct(config $config, driver_interface $db, request $request, template $template, user $user, language $language, log $log, service $cache, manager $phpbb_extension_manager)
+	public function __construct(config $config, driver_interface $db, request $request, template $template, user $user, language $language, log $log, service $cache, manager $phpbb_extension_manager, functions $functions, $tables)
 	{
 		$this->config 					= $config;
 		$this->db  						= $db;
@@ -86,8 +91,8 @@ class admin_controller implements admin_interface
 		$this->log						= $log;
 		$this->cache 					= $cache;
 		$this->phpbb_extension_manager 	= $phpbb_extension_manager;
-
-		$this->current_ext 				= 'david63/disableext';
+		$this->functions				= $functions;
+		$this->tables					= $tables;
 	}
 
 	/**
@@ -99,7 +104,7 @@ class admin_controller implements admin_interface
 	public function display_options()
 	{
 		// Add the language file
-		$this->language->add_lang('acp_disableext', $this->current_ext);
+		$this->language->add_lang('acp_disableext', $this->functions->get_ext_namespace());
 
 		// Create a form key for preventing CSRF attacks
 		$form_key 	= 'disableext_manage';
@@ -109,6 +114,7 @@ class admin_controller implements admin_interface
 		$orig_ext_count	= $this->request->variable('orig_ext_count', 0);
 		$confirm 		= false;
 		$continue		= true;
+		$back 			= false;
 
 		// Is the form being submitted?
 		if ($this->request->is_set_post('continue') || $this->request->is_set_post('confirm'))
@@ -129,9 +135,9 @@ class admin_controller implements admin_interface
 			{
 				// Get the enabled extensions, excluding this one
 				$sql = 'SELECT ext_name
-					FROM ' . EXT_TABLE . "
+					FROM ' . $this->tables['ext'] . "
 					WHERE ext_active = 1
-					AND ext_name <> '" . $this->db->sql_escape($this->current_ext) . "'";
+					AND ext_name <> '" . $this->db->sql_escape($this->functions->get_ext_namespace()) . "'";
 
 				$result = $this->db->sql_query($sql);
 
@@ -181,7 +187,12 @@ class admin_controller implements admin_interface
 			'HEAD_TITLE'		=> $this->language->lang('DISABLE_EXTENSIONS'),
 			'HEAD_DESCRIPTION'	=> $this->language->lang('DISABLE_EXTENSIONS_EXPLAIN'),
 
-			'VERSION_NUMBER'	=> ext::DISABLE_EXT_VERSION,
+			'NAMESPACE'			=> $this->functions->get_ext_namespace('twig'),
+
+			'S_BACK'			=> $back,
+			'S_VERSION_CHECK'	=> $this->functions->version_check(),
+
+			'VERSION_NUMBER'	=> $this->functions->get_this_version(),
 		));
 
 		// Set output vars for display in the template
@@ -213,7 +224,7 @@ class admin_controller implements admin_interface
 		$sql = 'SELECT COUNT(ext_active) AS active_ext
 			FROM ' . EXT_TABLE . "
 				WHERE ext_active = 1
-				AND ext_name <> '" . $this->db->sql_escape($this->current_ext) . "'";
+				AND ext_name <> '" . $this->db->sql_escape($this->functions->get_ext_namespace()) . "'";
 
 		$result		= $this->db->sql_query($sql);
 		$ext_count	= (int)$this->db->sql_fetchfield('active_ext');

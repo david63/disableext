@@ -49,7 +49,7 @@ $lang = array_merge($lang, array(
 		2 => 'You are about to disable %1$s extensions.',
 	),
 	'DISABLE_EXTENSIONS'			=> 'Disable extensions',
-	'DISABLE_EXTENSIONS_EXPLAIN'	=> 'This extension will disable all of your extensions. It will not delete any of the data associated with an extension and you will be able to re-enable them again in <strong>“Manage extensions”</strong>.<br /><br />If you want to remove an extension then after disabling the extensions you <strong>must</strong> “Delete data” for the extension <strong>before</strong> deleting the files.',
+	'DISABLE_EXTENSIONS_EXPLAIN'	=> 'This extension will disable all of your extensions. It will not delete any of the data associated with an extension and you will be able to re-enable them again in <strong>“Manage extensions”</strong>.<br><br>If you want to remove an extension then after disabling the extensions you <strong>must</strong> “Delete data” for the extension <strong>before</strong> deleting the files.',
 
 	'EXTENSIONS_DISABLED'			=> array(
 		0 => 'No extensions were disabled on this run',
@@ -57,6 +57,8 @@ $lang = array_merge($lang, array(
 		2 => '%1$s of %2$s extensions have been disabled',
 	),
 
+	'NEW_VERSION'					=> 'New Version',
+	'NEW_VERSION_EXPLAIN'			=> 'There is a newer version of this extension available.',
 	'NO_EXT_DATA'					=> 'There are no extensions to disable',
 	'NO_EXT_UNABLE'					=> 'Unable to disable any extensions',
 
