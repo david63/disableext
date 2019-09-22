@@ -146,7 +146,7 @@ class admin_controller implements admin_interface
 				{
 					while ($ext_name = $this->db->sql_fetchrow($result))
 					{
-						while ($this->phpbb_extension_manager->disable_step($ext_name['ext_name']));
+						//while ($this->phpbb_extension_manager->disable_step($ext_name['ext_name']));
 					}
 					$this->db->sql_freeresult($result);
 				}
