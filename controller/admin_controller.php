@@ -9,7 +9,6 @@
 
 namespace david63\disableext\controller;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use phpbb\config\config;
 use phpbb\db\driver\driver_interface;
 use phpbb\request\request;
@@ -155,7 +154,7 @@ class admin_controller implements admin_interface
 				}
 
 				// Get count of extensions disabled
-  				$disabled_ext = $orig_ext_count - $this->get_active_ext();
+				$disabled_ext = $orig_ext_count - $this->get_active_ext();
 
 				// Add disable action to the admin log
 				$this->log->add('admin', $this->user->data['user_id'], $this->user->ip, 'DISABLE_EXTENSIONS_LOG', time(), array($disabled_ext, $orig_ext_count));
@@ -202,11 +201,11 @@ class admin_controller implements admin_interface
 
 		if ($continue)
 		{
-			$this->template->assign_var('MESSAGE', $this->language->lang('DISABLE_COUNT', (int)$orig_ext_count));
+			$this->template->assign_var('MESSAGE', $this->language->lang('DISABLE_COUNT', (int) $orig_ext_count));
 		}
 		else if ($confirm)
 		{
-			$this->template->assign_var('MESSAGE', $this->language->lang('ARE_YOU_SURE', (int)$orig_ext_count));
+			$this->template->assign_var('MESSAGE', $this->language->lang('ARE_YOU_SURE', (int) $orig_ext_count));
 		}
 	}
 
@@ -224,7 +223,7 @@ class admin_controller implements admin_interface
 				AND ext_name <> '" . $this->db->sql_escape($this->functions->get_ext_namespace()) . "'";
 
 		$result		= $this->db->sql_query($sql);
-		$ext_count	= (int)$this->db->sql_fetchfield('active_ext');
+		$ext_count	= (int) $this->db->sql_fetchfield('active_ext');
 
 		$this->db->sql_freeresult($result);
 
