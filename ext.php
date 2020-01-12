@@ -23,13 +23,13 @@ class ext extends base
 	*/
 	public function is_enableable()
  	{
-		// Requires phpBB 3.2.0 or newer.
-		$is_enableable = phpbb_version_compare(PHPBB_VERSION, '3.2.0', '>=');
+		// Requires phpBB 3.3.0 or newer.
+		$is_enableable = phpbb_version_compare(PHPBB_VERSION, '3.3.0', '>=');
 
 		// Display a custom warning message if requirement fails.
 		if (!$is_enableable)
 		{
-			// Need to cater for 3.1 and 3.2
+			// Need to cater for 3.1 and 3.2/3.3
 			if (phpbb_version_compare(PHPBB_VERSION, '3.2.0', '>='))
 			{
 				$this->container->get('language')->add_lang('ext_enable_error', 'david63/disableext');

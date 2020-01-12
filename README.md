@@ -7,9 +7,10 @@ Adds an option to disable all phpBB extensions.
 [![Latest Stable Version](https://poser.pugx.org/david63/disableext/v/stable)](https://packagist.org/packages/david63/disableext)
 [![Latest Unstable Version](https://poser.pugx.org/david63/disableext/v/unstable)](https://packagist.org/packages/david63/disableext)
 [![Total Downloads](https://poser.pugx.org/david63/disableext/downloads)](https://packagist.org/packages/david63/disableext)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/91a0d17bcbd64b92a0fa89bfd925da12)](https://www.codacy.com/manual/david63/disableext?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=david63/disableext&amp;utm_campaign=Badge_Grade)
 
 ## Minimum Requirements
-* phpBB 3.2.0
+* phpBB 3.3.0
 * PHP 5.4
 
 ## Install

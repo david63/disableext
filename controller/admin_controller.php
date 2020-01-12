@@ -17,7 +17,6 @@ use phpbb\template\template;
 use phpbb\user;
 use phpbb\language\language;
 use phpbb\log\log;
-use phpbb\cache\service;
 use phpbb\extension\manager;
 use david63\disableext\core\functions;
 
@@ -47,9 +46,6 @@ class admin_controller implements admin_interface
 	/** @var \phpbb\log\log */
 	protected $log;
 
-	/** @var \phpbb\cache\service */
-	protected $cache;
-
 	/** @var \phpbb\extension\manager */
 	protected $phpbb_extension_manager;
 
@@ -72,15 +68,14 @@ class admin_controller implements admin_interface
 	* @param \phpbb\user							$user						User object
 	* @param \phpbb\language\language				$language					Language object
 	* @param \phpbb\log\log							$log						Log object
-	* @param \phpbb\cache\service					$cache						Cache object
 	* @param \phpbb\extension\manager				$phpbb_extension_manager	Extension manager
-	* @param \david63\disableext\core\functions	functions					Functions for the extension
+	* @param \david63\disableext\core\functions	functions						Functions for the extension
 	* @param array									$tables						phpBB db tables
 	*
 	* @return \david63\disableext\controller\admin_controller
 	* @access public
 	*/
-	public function __construct(config $config, driver_interface $db, request $request, template $template, user $user, language $language, log $log, service $cache, manager $phpbb_extension_manager, functions $functions, $tables)
+	public function __construct(config $config, driver_interface $db, request $request, template $template, user $user, language $language, log $log, manager $phpbb_extension_manager, functions $functions, $tables)
 	{
 		$this->config 					= $config;
 		$this->db  						= $db;
@@ -89,7 +84,6 @@ class admin_controller implements admin_interface
 		$this->user						= $user;
 		$this->language					= $language;
 		$this->log						= $log;
-		$this->cache 					= $cache;
 		$this->phpbb_extension_manager 	= $phpbb_extension_manager;
 		$this->functions				= $functions;
 		$this->tables					= $tables;
@@ -146,7 +140,10 @@ class admin_controller implements admin_interface
 				{
 					while ($ext_name = $this->db->sql_fetchrow($result))
 					{
-						//while ($this->phpbb_extension_manager->disable_step($ext_name['ext_name']));
+						//while ($this->phpbb_extension_manager->disable_step($ext_name['ext_name']))
+						{
+							continue;
+						}
 					}
 					$this->db->sql_freeresult($result);
 				}
