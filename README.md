@@ -30,4 +30,4 @@ Adds an option to disable all phpBB extensions.
 ## License
 [GNU General Public License v2](http://opensource.org/licenses/GPL-2.0)
 
-© 2019 - David Wood
+© 2020 - David Wood

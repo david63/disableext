@@ -96,8 +96,9 @@ class admin_controller implements admin_interface
 	*/
 	public function display_options()
 	{
-		// Add the language file
+		// Add the language files
 		$this->language->add_lang('acp_disableext', $this->functions->get_ext_namespace());
+		$this->language->add_lang('acp_common', $this->functions->get_ext_namespace());
 
 		// Create a form key for preventing CSRF attacks
 		$form_key 	= 'disableext_manage';
@@ -139,7 +140,7 @@ class admin_controller implements admin_interface
 				{
 					while ($ext_name = $this->db->sql_fetchrow($result))
 					{
-						//while ($this->phpbb_extension_manager->disable_step($ext_name['ext_name']))
+						while ($this->phpbb_extension_manager->disable_step($ext_name['ext_name']))
 						{
 							continue;
 						}
@@ -179,17 +180,21 @@ class admin_controller implements admin_interface
 		);
 
 		// Template vars for header panel
+		$version_data	= $this->functions->version_check();
+
 		$this->template->assign_vars(array(
+			'DOWNLOAD'			=> (array_key_exists('download', $version_data)) ? '<a href =' . $version_data['download'] . '>' . $this->language->lang('NEW_VERSION_LINK') . '</a>' : '',
+
 			'HEAD_TITLE'		=> $this->language->lang('DISABLE_EXTENSIONS'),
 			'HEAD_DESCRIPTION'	=> $this->language->lang('DISABLE_EXTENSIONS_EXPLAIN'),
 
 			'NAMESPACE'			=> $this->functions->get_ext_namespace('twig'),
 
 			'S_BACK'			=> $back,
-			'S_VERSION_CHECK'	=> $this->functions->version_check(),
+			'S_VERSION_CHECK'	=> (array_key_exists('current', $version_data)) ? $version_data['current'] : false,
 
-			'VERSION_NUMBER'	=> $this->functions->get_this_version(),
-		));
+			'VERSION_NUMBER'	=> $this->functions->get_meta('version'),
+		));;
 
 		// Set output vars for display in the template
 		$this->template->assign_vars(array(
