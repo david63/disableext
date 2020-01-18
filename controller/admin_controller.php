@@ -194,7 +194,7 @@ class admin_controller implements admin_interface
 			'S_VERSION_CHECK'	=> (array_key_exists('current', $version_data)) ? $version_data['current'] : false,
 
 			'VERSION_NUMBER'	=> $this->functions->get_meta('version'),
-		));;
+		));
 
 		// Set output vars for display in the template
 		$this->template->assign_vars(array(
