@@ -17,3 +17,6 @@ services:
         class: david63\disableext\core\functions
         arguments:
             - '@ext.manager'
+
+    _defaults:
+        public: true
