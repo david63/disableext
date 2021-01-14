@@ -144,7 +144,7 @@ class admin_controller
 				{
 					while ($ext_name = $this->db->sql_fetchrow($result))
 					{
-						while ($this->phpbb_extension_manager->disable_step($ext_name['ext_name']))
+						//while ($this->phpbb_extension_manager->disable_step($ext_name['ext_name']))
 						{
 							continue;
 						}
@@ -192,7 +192,7 @@ class admin_controller
 		$this->template->assign_vars([
 			'DOWNLOAD' 			=> (array_key_exists('download', $version_data)) ? '<a class="download" href =' . $version_data['download'] . '>' . $this->language->lang('NEW_VERSION_LINK') . '</a>' : '',
 
- 			'EXT_IMAGE_PATH'	=> $this->ext_images_path,
+			'EXT_IMAGE_PATH'	=> $this->ext_images_path,
 
 			'HEAD_TITLE' 		=> $this->language->lang('DISABLE_EXTENSIONS'),
 			'HEAD_DESCRIPTION'	=> $this->language->lang('DISABLE_EXTENSIONS_EXPLAIN'),
