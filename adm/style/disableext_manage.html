@@ -1,21 +1,23 @@
 {% include '@' ~ NAMESPACE ~ '/head_panel.html' %}
 
-<form id="disableext" method="post" action="{{ U_ACTION }}">
-	<fieldset>
-		<p class="disable-ext-message">{{ MESSAGE }}</p>
-		{% if FORM_CONTINUE %}
-			<p class="submit-buttons">
-				<input class="adm-button" type="submit" id="continue" name="continue" value="{{ lang('CONTINUE') }}" />
-			</p>
-		{% elseif FORM_CONFIRM %}
-			<p class="submit-buttons">
-				<input class="adm-button" type="submit" id="confirm" name="confirm" value="{{ lang('CONFIRM') }}" />
-			</p>
-		{% endif %}
+{% if PHP_VALID and PHPBB_VALID %}
+	<form id="disableext" method="post" action="{{ U_ACTION }}">
+		<fieldset>
+			<p class="disable-ext-message">{{ MESSAGE }}</p>
+			{% if FORM_CONTINUE %}
+				<p class="submit-buttons">
+					<input class="adm-button" type="submit" id="continue" name="continue" value="{{ lang('CONTINUE') }}" />
+				</p>
+			{% elseif FORM_CONFIRM %}
+				<p class="submit-buttons">
+					<input class="adm-button" type="submit" id="confirm" name="confirm" value="{{ lang('CONFIRM') }}" />
+				</p>
+			{% endif %}
 
-		{{ S_FORM_TOKEN }}
-		{{ S_HIDDEN_FIELDS }}
-	</fieldset>
-</form>
+			{{ S_FORM_TOKEN }}
+			{{ S_HIDDEN_FIELDS }}
+		</fieldset>
+	</form>
 
-{% include '@' ~ NAMESPACE ~ '/donate.html' %}
+	{% include '@' ~ NAMESPACE ~ '/donate.html' %}
+{% endif %}

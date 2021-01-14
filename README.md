@@ -10,12 +10,11 @@ Adds an option to disable all phpBB extensions.
 [![codecov](https://codecov.io/gh/david63/disableext/branch/master/graph/badge.svg?token=D2500PgRex)](https://codecov.io/gh/david63/disableext)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/91a0d17bcbd64b92a0fa89bfd925da12)](https://www.codacy.com/manual/david63/disableext?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=david63/disableext&amp;utm_campaign=Badge_Grade)
 
- [![Compatible](https://img.shields.io/badge/compatible-phpBB:3.2.x-blue.svg)](https://shields.io/)
  [![Compatible](https://img.shields.io/badge/compatible-phpBB:3.3.x-blue.svg)](https://shields.io/)
 
 ## Minimum Requirements
 * phpBB 3.3.0
-* PHP 5.4
+* PHP 7.1.3
 
 ## Install
 1. [Download the latest release](https://github.com/david63/disableext/archive/3.2.zip) and unzip it.
@@ -34,4 +33,4 @@ Adds an option to disable all phpBB extensions.
 ## License
 [GNU General Public License v2](http://opensource.org/licenses/GPL-2.0)
 
-© 2020 - David Wood
+© 2021 - David Wood

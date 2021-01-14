@@ -1,22 +1,16 @@
+imports:
+    - { resource: alias.yml }
+
 services:
+    _defaults:
+        autowire: true
+        bind:
+            $tables: '%tables%'
+            $ext_images_path: '%core.root_path%ext/david63/announceonindex/adm/style/images'
+        public: true
+
     david63.disableext.admin.controller:
         class: david63\disableext\controller\admin_controller
-        arguments:
-            - '@config'
-            - '@dbal.conn'
-            - '@request'
-            - '@template'
-            - '@user'
-            - '@language'
-            - '@log'
-            - '@ext.manager'
-            - '@david63.disableext.core.functions'
-            - '%tables%'
 
     david63.disableext.core.functions:
         class: david63\disableext\core\functions
-        arguments:
-            - '@ext.manager'
-
-    _defaults:
-        public: true
